@@ -3,10 +3,9 @@ module VGA_initializer (
     input wire RESET,             // Reset signal
     output wire hsync,           // Horizontal sync output
     output wire vsync,           // Vertical sync output
-	 output reg [9:0] hc = 0,		// Counter for horizontal timing also gives us the horizontal location
+    output reg [9:0] hc = 0,		// Counter for horizontal timing also gives us the horizontal location
     output reg [9:0] vc = 0,		// Counters for vertical timing also gives us the vertical location
-	 output wire is_blanking 		// To see whether we are in blanking state or not
-
+    output wire is_blanking 	// To see whether we are in blanking state or not
 );
 
     // VGA parameters for 640x480 @ 60Hz
@@ -50,7 +49,7 @@ module VGA_initializer (
         // VSYNC
     assign vsync = (vc >= V_VISIBLE + V_FRONT_PORCH && vc < V_VISIBLE + V_FRONT_PORCH + V_SYNC_PULSE) ? 0 : 1;
 	 
-		 // Blanking state
-	 assign is_blanking = ~(hc < H_VISIBLE && vc < V_VISIBLE);
+	// Blanking state
+    assign is_blanking = ~(hc < H_VISIBLE && vc < V_VISIBLE);
 
 endmodule
