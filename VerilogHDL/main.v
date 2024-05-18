@@ -1,15 +1,15 @@
 module main(
-    input wire CLK,             // 25.175 MHz clock
-    input wire RESET,             // Reset signal
-	 input wire Weapon_switch, 	// To switch the current weapon (Button3)
-	 input wire Rotate_CW, 			// To rotate 22.5 degrees in clockwise direction (Button2)
-	 input wire Rotate_CCW, 		// To rotate 22.5 degrees in counter-clockwise direction (Button1)
-	 input wire Interaction,		// Used as an interaction button for "Try again", "OKAY" (Button4)
-    output wire hsync,           // Horizontal sync output
-    output wire vsync,           // Vertical sync output
-	 output reg[7:0] red,			// Pixel color information about red color
-	 output reg[7:0] green,			// Pixel color information about green color
-	 output reg[7:0] blue			// Pixel color information about blue color
+    input wire CLK,             	// 25.175 MHz clock
+    input wire RESET,             	// Reset signal
+    input wire Weapon_switch, 		// To switch the current weapon (Button3)
+    input wire Rotate_CW, 		// To rotate 22.5 degrees in clockwise direction (Button2)
+    input wire Rotate_CCW, 		// To rotate 22.5 degrees in counter-clockwise direction (Button1)
+    input wire Interaction,		// Used as an interaction button for "Try again", "OKAY" (Button4)
+    output wire hsync,           	// Horizontal sync output
+    output wire vsync,           	// Vertical sync output
+    output reg[7:0] red,		// Pixel color information about red color
+    output reg[7:0] green,		// Pixel color information about green color
+    output reg[7:0] blue		// Pixel color information about blue color
 );
 
 // Creating all needed wires and registers
