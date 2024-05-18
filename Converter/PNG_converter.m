@@ -22,16 +22,6 @@ function PNG_converter(filename, colorcodes)
             end
             % Assign the closest color from the palette to the pixel
             image(i,j,:) = color;
-
-            % Update iteration count
-            iteration_count = iteration_count + 1;
-
-            % Check if it's time to print progress
-            if mod(iteration_count, total_iterations / 20) == 0
-                % Calculate completion percentage
-                completion_percentage = (iteration_count / total_iterations) * 100;
-                fprintf('Completion: %.1f%%\n', completion_percentage);
-            end
         end
     end
 
