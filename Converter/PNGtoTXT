@@ -1,0 +1,47 @@
+% colorcodes = [26 28 43; 93 38 93; 178 62 83; 239 125 88; 255 205 118; 168 240 112; 54 184 101; 36 113 121; 42 54 112; 59 93 201; 65 166 246; 115 239 247; 244 244 244; 149 176 195; 86 107 134; 50 60 87];
+% PNGtoTXT("0.png", colorcodes);
+
+function PNGtoTXT(filename, colorPalette)
+    % Validate the color palette
+    numColors = size(colorPalette, 1);
+    if size(colorPalette, 2) ~= 3
+        error('Color palette must be an Nx3 matrix representing RGB colors.');
+    end
+
+    % Determine the number of bits needed to represent the palette indices
+    numBits = ceil(log2(numColors));
+    
+    % Read the image
+    img = imread(filename);
+    [height, width, ~] = size(img);
+
+    % Open a file to write the Verilog code
+    [~, name, ~] = fileparts(filename);
+    verilogFilename = strcat(name, '.txt');
+    fid = fopen(verilogFilename, 'w');
+    
+    % Iterate through each pixel and write the Verilog code to assign values
+    for y = 1:height
+        for x = 1:width
+            % Get the RGB values of the pixel
+            pixel = squeeze(img(y, x, :))';
+            
+            % Find the index of the matching color in the palette
+            colorIndex = find(all(colorPalette == pixel, 2)) - 1;
+            
+            if isempty(colorIndex)
+                error('Pixel color not found in the palette.');
+            end
+            
+            % Write the assignment to the file
+            fprintf(fid, ' %d,', colorIndex - 1);
+        end
+        fprintf(fid, '\n');
+    end
+    
+    % Close the file
+    fclose(fid);
+    
+    % Display a message to indicate completion
+    fprintf('Text file generated and saved to %s\n', verilogFilename);
+end
