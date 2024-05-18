@@ -49,7 +49,7 @@ module VGA_initializer (
         // VSYNC
     assign vsync = (vc >= V_VISIBLE + V_FRONT_PORCH && vc < V_VISIBLE + V_FRONT_PORCH + V_SYNC_PULSE) ? 0 : 1;
 	 
-	// Blanking state
+    // Blanking state
     assign is_blanking = ~(hc < H_VISIBLE && vc < V_VISIBLE);
 
 endmodule
