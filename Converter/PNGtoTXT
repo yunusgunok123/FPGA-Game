@@ -2,15 +2,10 @@
 % PNGtoTXT("0.png", colorcodes);
 
 function PNGtoTXT(filename, colorPalette)
-    % Validate the color palette
-    numColors = size(colorPalette, 1);
     if size(colorPalette, 2) ~= 3
         error('Color palette must be an Nx3 matrix representing RGB colors.');
     end
 
-    % Determine the number of bits needed to represent the palette indices
-    numBits = ceil(log2(numColors));
-    
     % Read the image
     img = imread(filename);
     [height, width, ~] = size(img);
@@ -34,7 +29,7 @@ function PNGtoTXT(filename, colorPalette)
             end
             
             % Write the assignment to the file
-            fprintf(fid, '%d,', colorIndex - 1);
+            fprintf(fid, '%d,', colorIndex);
         end
         fprintf(fid, ';');
     end
