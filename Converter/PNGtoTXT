@@ -34,9 +34,9 @@ function PNGtoTXT(filename, colorPalette)
             end
             
             % Write the assignment to the file
-            fprintf(fid, ' %d,', colorIndex - 1);
+            fprintf(fid, '%d,', colorIndex - 1);
         end
-        fprintf(fid, '\n');
+        fprintf(fid, ';');
     end
     
     % Close the file
