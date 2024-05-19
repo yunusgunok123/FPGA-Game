@@ -20,6 +20,8 @@ function Multiple_converter(foldername, colorcodes, registername, new_foldername
 
 % new_foldername is a string representing the name of the folder name which will be created to store reconstructed PNG files
 
+% Note: new_foldername should not be the same as foldername
+
 % Get a list of all PNG files in the folder
 pngFiles = dir(fullfile(foldername, '*.png'));
 
