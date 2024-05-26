@@ -36,7 +36,7 @@ parameter [23:0] color15 = {8'd050, 8'd060, 8'd087};
 
 reg[3:0] pixel;
 
-assign red = (is_blanking) ? 8'b00000000:
+	assign red = (is_blanking) ? 8'd0:
 	(pixel == 4'd0) ? color0[23:16]:
 	(pixel == 4'd1) ? color1[23:16]:
 	(pixel == 4'd2) ? color2[23:16]:
@@ -54,7 +54,7 @@ assign red = (is_blanking) ? 8'b00000000:
 	(pixel == 4'd14) ? color14[23:16]:
 	color15[23:16];
 
-assign green = (is_blanking) ? 8'b00000000:
+	assign green = (is_blanking) ? 8'd0:
 	(pixel == 4'd0) ? color0[15:8]:
 	(pixel == 4'd1) ? color1[15:8]:
 	(pixel == 4'd2) ? color2[15:8]:
@@ -72,7 +72,7 @@ assign green = (is_blanking) ? 8'b00000000:
 	(pixel == 4'd14) ? color14[15:8]:
 	color15[15:8];
 
-assign blue = (is_blanking) ? 8'b00000000:
+	assign blue = (is_blanking) ? 8'd0:
 	(pixel == 4'd0) ? color0[7:0]:
 	(pixel == 4'd1) ? color1[7:0]:
 	(pixel == 4'd2) ? color2[7:0]:
