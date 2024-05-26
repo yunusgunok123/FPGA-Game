@@ -1,15 +1,15 @@
 module main(
-    input wire CLK,             		// 25.175 MHz clock
-    input wire RESET,             		// Reset signal
-    input wire Weapon_switch, 			// To switch the current weapon (Button3)
-    input wire Rotate_CW, 			// To rotate 22.5 degrees in clockwise direction (Button2)
-    input wire Rotate_CCW, 			// To rotate 22.5 degrees in counter-clockwise direction (Button1)
-    input wire Interaction,			// Used as an interaction button for "Try again", "OKAY" (Button4)
-    output wire hsync,           		// Horizontal sync output
-    output wire vsync,           		// Vertical sync output
-    output wire[7:0] red,			// Pixel color information about red color
-    output wire[7:0] green,			// Pixel color information about green color
-    output wire[7:0] blue			// Pixel color information about blue color
+    input wire CLK,             // 25.175 MHz clock
+    input wire RESET,             // Reset signal
+	 input wire Weapon_switch, 	// To switch the current weapon (Button3)
+	 input wire Rotate_CW, 			// To rotate 22.5 degrees in clockwise direction (Button2)
+	 input wire Rotate_CCW, 		// To rotate 22.5 degrees in counter-clockwise direction (Button1)
+	 input wire Interaction,		// Used as an interaction button for "Try again", "OKAY" (Button4)
+    output wire hsync,           // Horizontal sync output
+    output wire vsync,           // Vertical sync output
+	 output wire[7:0] red,			// Pixel color information about red color
+	 output wire[7:0] green,			// Pixel color information about green color
+	 output wire[7:0] blue			// Pixel color information about blue color
 );
 
 // Creating all needed wires, registers, and parameters
@@ -217,6 +217,11 @@ module main(
 											  (score_digit4 == 4'd8) ? Number8:
 											  Number9;
 
+	// Other settings
+	
+		parameter center_point_hc = GUI_width + 239;  // Horizontal coordinate of the center point of the game screen
+		parameter center_point_vc = 239; // Vertical coordinate of the center point of the game screen
+	
 	// Spaceship settings
 
 		parameter SS_hc = GUI_width + 215;
@@ -280,37 +285,51 @@ module main(
 // Always block to find the color information of the current location
 always @(posedge CLK) begin
 	
+//	// If we are not in blanking state
+//	if (~is_blanking) begin
+//
+//		// Check whether we are in the pixels of GUI
+//		if (hc <= GUI_width) begin 
+//		
+//			// Check the pixel is in Score article image
+//			if ((hc >= score_art_hc) & (vc >= score_art_vc) & (hc <= score_art_hc + score_art_width) & (vc <= score_art_vc + score_art_height)) pixel = score_art[hc - score_art_hc][vc - score_art_vc];
+//			
+//			// Check the pixel is in Score image
+//			else if ((hc >= score_hc) & (vc >= score_vc) & (hc <= score_hc + score_width*5) & (vc <= score_vc + score_height)) begin
+//				if (hc <= score_hc + score_width) pixel = score_img_digit4[hc - score_hc][vc - score_vc]; // Fourth digit
+//				else if (hc <= score_hc + score_width*2) pixel = score_img_digit3[hc - score_hc - score_width][vc - score_vc]; // Third digit
+//				else if (hc <= score_hc + score_width*3) pixel = score_img_digit2[hc - score_hc - score_width*2][vc - score_vc]; // Second digit
+//				else if (hc <= score_hc + score_width*4) pixel = score_img_digit1[hc - score_hc - score_width*3][vc - score_vc]; // First digit
+//				else pixel = score_img_digit0[hc - score_hc - score_width*4][vc - score_vc]; // Zeroth digit
+//			end
+//			
+//			// Check the pixel is in Weapon article image
+//			else if ((hc >= weapon_art_hc) & (vc >= weapon_art_vc) & (hc <= weapon_art_hc + weapon_art_width) & (vc <= weapon_art_vc + weapon_art_height)) pixel = weapon_art[hc - weapon_art_hc][vc - weapon_art_vc];
+//		
+//			else pixel = 4'b1111;
+//		
+//		end
+//		
+//		// Check whether we are in the pixels of the spaceship
+//		else if ((hc >= SS_hc) & (vc >= SS_vc) & (hc <= SS_hc + SS_width) & (vc <= SS_vc + SS_height)) pixel = SS_current[hc - SS_hc][vc - SS_vc];
+//		
+//	else pixel = 4'b0000;
+//		
+//	end	
+
 	// If we are not in blanking state
 	if (~is_blanking) begin
-
+	
 		// Check whether we are in the pixels of GUI
 		if (hc <= GUI_width) begin 
 		
-			// Check the pixel is in Score article image
-			if ((hc >= score_art_hc) & (vc >= score_art_vc) & (hc <= score_art_hc + score_art_width) & (vc <= score_art_vc + score_art_height)) pixel = score_art[hc - score_art_hc][vc - score_art_vc];
-			
-			// Check the pixel is in Score image
-			else if ((hc >= score_hc) & (vc >= score_vc) & (hc <= score_hc + score_width*5) & (vc <= score_vc + score_height)) begin
-				if (hc <= score_hc + score_width) pixel = score_img_digit4[hc - score_hc][vc - score_vc]; // Fourth digit
-				else if (hc <= score_hc + score_width*2) pixel = score_img_digit3[hc - score_hc - score_width][vc - score_vc]; // Third digit
-				else if (hc <= score_hc + score_width*3) pixel = score_img_digit2[hc - score_hc - score_width*2][vc - score_vc]; // Second digit
-				else if (hc <= score_hc + score_width*4) pixel = score_img_digit1[hc - score_hc - score_width*3][vc - score_vc]; // First digit
-				else pixel = score_img_digit0[hc - score_hc - score_width*4][vc - score_vc]; // Zeroth digit
-			end
-			
-			// Check the pixel is in Weapon article image
-			else if ((hc >= weapon_art_hc) & (vc >= weapon_art_vc) & (hc <= weapon_art_hc + weapon_art_width) & (vc <= weapon_art_vc + weapon_art_height)) pixel = weapon_art[hc - weapon_art_hc][vc - weapon_art_vc];
-		
-			else pixel = 4'b1111;
-		
 		end
 		
-		// Check whether we are in the pixels of the spaceship
-		else if ((hc >= SS_hc) & (vc >= SS_vc) & (hc <= SS_hc + SS_width) & (vc <= SS_vc + SS_height)) pixel = SS_current[hc - SS_hc][vc - SS_vc];
-		
-	else pixel = 4'b0000;
-		
-	end	
+		else begin
+		pixel = pixel_finder();
+		end 
+	
+	end
 end
 
 // Always block for updating the state of spaceship
@@ -320,4 +339,229 @@ always @(posedge ~Rotate_CCW or posedge ~Rotate_CW) begin
 end
 
 
+
+
+reg [6:0] enemies_dist[7:0];
+reg [3:0] enemies_angle[7:0];
+reg [3:0] enemies_health[7:0];
+reg [2:0] enemies_type[7:0];
+reg enemies_active[7:0];
+
+reg [6:0] bullets_dist[15:0];
+reg [3:0] bullets_angle[15:0];
+reg [1:0] bullets_type[15:0];
+reg bullets_active[15:0];
+
+
+
+reg temp;
+
+function [11:0] change_cor(input [5:0] _dist, input [3:0] _angle);
+begin
+	// cos0 = 1, sin0 = 0
+	// cos45 = sin45 = 45/64
+	// cos22.5 = 59/64, sin22.5 = 24/64
+	// Pozitif y aşağı
+	// Pozitif x sağ
+	case(_angle)
+		4'd0,4'd4,4'd8,4'd12: begin
+			change_cor[5:0] = (_angle == 4'd4) ? -_dist:
+				(_angle == 4'd12) ? _dist: 0;
+			change_cor[11:6] = (_angle == 4'd0) ? _dist:
+				(_angle == 4'd8) ? -_dist: 0;
+		end
+		4'd2,4'd6,4'd10,4'd14: begin
+			reg [11:0] temp1 = 12'd45 * _dist;
+			change_cor[5:0] = (_angle == 4'd2 || _angle == 4'd6) ? -temp1[11:6]: temp1[11:6];
+			change_cor[11:6] = (_angle == 4'd2 || _angle == 4'd14) ? temp1[11:6]: -temp1[11:6];	
+		end
+		default: begin
+			reg [11:0] temp1 = 12'd59 * _dist;
+			reg [11:0] temp2 = 12'd24 * _dist;
+			change_cor[5:0] = (_angle == 4'd1 || _angle == 4'd7) ? -temp2[11:6]:
+				(_angle == 4'd9 || _angle == 4'd15) ? temp2[11:6]:
+				(_angle == 4'd3 || _angle == 4'd5) ? -temp1[11:6]:
+				temp1[11:6];
+			change_cor[11:6] = (_angle == 4'd1 || _angle == 4'd15) ? temp1[11:6]:
+				(_angle == 4'd7 || _angle == 4'd9) ? -temp1[11:6]:
+				(_angle == 4'd3 || _angle == 4'd13) ? temp2[11:6]:
+				-temp2[11:6];
+		end
+	endcase
+end
+endfunction
+
+function enemy_init(input [2:0] e_type);
+begin
+	reg [3:0] i;
+	reg stop = 1'b0;
+	for(i = 4'd0; i < 4'd7 && ~stop; i = i + 4'd1)
+	if(~enemies_active[i]) begin
+		stop = 1'b1;
+		enemies_dist[i] = 7'd127; // Başlangıçta en uzak değer yaptım
+		enemies_angle[i] = $random;
+		enemies_health[i] = (e_type == 0) ? 4'd6:
+								  (e_type == 0) ? 4'd3:
+								  (e_type == 0) ? 4'd2:
+								  (e_type == 0) ? 4'd9:
+									4'd15; 
+	end
+end
+endfunction
+
+
+function enemy_move(input [2:0] i);
+enemies_dist[i] = (enemies_type[i] == 3'd0) ? enemies_dist[i] - 7'd3 :
+						(enemies_type[i] == 3'd1) ? enemies_dist[i] - 7'd4 :
+						(enemies_type[i] == 3'd2) ? enemies_dist[i] - 7'd5 :
+						(enemies_type[i] == 3'd3) ? enemies_dist[i] - 7'd2 :
+						enemies_dist[i] - 7'd1;
+endfunction
+
+function enemies_action();
+begin
+	reg [3:0] i;
+	for(i = 4'd0; i < 4'd7; i = i + 4'd1)
+	if(enemies_active[i]) begin
+		temp = enemy_move(i);
+	end
+end
+endfunction
+
+function bullet_init(input [1:0] w_type, input [3:0] angle);
+begin
+	reg [4:0] i;
+	reg [2:0] stop = 3'd0;
+	reg [2:0] counter;
+	for(i = 5'd0; i < 5'd15; i = i + 5'd1) begin
+	if(~bullets_active[i]) counter = counter + 3'b1;
+	end
+	
+	// Five Shot
+	if ((w_type == 2'd0) && (counter >= 3'd5)) begin
+		
+		for(i = 5'd0; i < 5'd15 && (stop < 3'd5); i = i + 5'd1)
+			if(~bullets_active[i]) begin
+					bullets_dist[i] = 7'd0; 
+					bullets_angle[i] = angle - 4'd2 + stop;
+					bullets_active[i] = 1'b1;	
+					stop = stop + 3'd1;
+			end
+	end	
+	// Triple Shot
+	else if ((w_type == 2'd1) && (counter >= 3'd3)) begin
+		
+		for(i = 5'd0; i < 5'd15 && (stop < 3'd3); i = i + 5'd1)
+			if(~bullets_active[i]) begin
+					bullets_dist[i] = 7'd0; 
+					bullets_angle[i] = angle - 4'd1 + stop;
+					bullets_active[i] = 1'b1;	
+					stop = stop + 3'd1;
+			end
+	end
+	// Single Shot
+	else if (counter >= 3'd1) begin
+		for(i = 5'd0; i < 5'd15 && (stop < 3'd1); i = i + 5'd1)
+			if(~bullets_active[i]) begin
+					bullets_dist[i] = 7'd0; 
+					bullets_angle[i] = angle;
+					bullets_active[i] = 1'b1;	
+					stop = stop + 3'd1;
+			end
+	end
+end
+endfunction
+
+function bullet_move(input [3:0] i);
+bullets_dist[i] = (bullets_type[i] == 2'b0) ? bullets_dist[i] + 7'd7 :
+						(bullets_type[i] == 2'b1) ? bullets_dist[i] + 7'd5 :
+						 bullets_dist[i] + 7'd4;
+endfunction
+
+function bullets_action();
+begin
+	reg [4:0] i;
+	for(i = 5'd0; i < 5'd15; i = i + 5'd1)
+	if(bullets_active[i]) begin
+		temp = bullet_move(i);
+		temp = check_col(i);
+	end
+end
+endfunction
+
+function check_col(input [3:0] i);
+begin 
+	reg [3:0] damage_dealt;
+	reg [3:0] j;
+	reg stop = 1'b0;
+	for(j = 4'd0; j < 4'd7 && ~stop; j = j + 4'd1)
+	if(enemies_active[j] && enemies_dist[j] <= bullets_dist[i]) begin
+		bullets_active[i] = 1'b0;
+		damage_dealt = (bullets_type[i] == 2'b0) ? 4'd2 :
+							(bullets_type[i] == 2'b1) ? 4'd3 :
+							 4'd9;
+		if (enemies_health[j] <= damage_dealt) enemies_health[j] = 4'd0;
+		else enemies_health[j] = enemies_health[j] - damage_dealt;
+	end
+end
+endfunction
+
+function [3:0] pixel_finder;
+begin
+
+//	pixel_finder = 4'd0;
+	reg [4:0] i;
+	reg [5:0] x;
+	reg [5:0] y;
+	reg [11:0] temp3;
+		
+	// For bullets
+	for (i = 5'd0; i < 5'd15; i = i + 5'd1)
+		temp3 = change_cor(bullets_dist[i],bullets_angle[i]);
+		x = temp3[11:6];
+		y = temp3[5:0];
+		
+		if ((hc >= (x + center_point_hc - 16) ) & (hc <= (x + center_point_hc + 16) ) & (vc >= (y + center_point_vc - 16) ) & (vc <= (y + center_point_vc + 16) )) begin
+			pixel_finder = Bullet_img((hc - x - center_point_hc + 16) , (vc - y - center_point_vc + 16), bullets_angle[i], bullets_type[i]);
+		end
+	// For enemies
+	for (i = 5'd0; i < 5'd7; i = i + 5'd1)
+		temp3 = change_cor(enemies_dist[i],enemies_angle[i]);
+		x = temp3[11:6];
+		y = temp3[5:0];
+		if (enemies_type[i] == 3'd3 | enemies_type[i] == 3'd4) begin
+			if ((hc >= x + center_point_hc - 64 ) & (hc <= x + center_point_hc + 64 ) & (vc >= y + center_point_vc - 64 ) & (vc <= y + center_point_vc + 64 )) begin
+				pixel_finder = Enemy_img((hc - x - center_point_hc + 64) , (vc - y - center_point_vc + 64), enemies_angle[i], enemies_type[i]);
+				end
+		end
+		else begin
+			if ((hc >= x + center_point_hc - 32 ) & (hc <= x + center_point_hc + 32 ) & (vc >= y + center_point_vc - 32 ) & (vc <= y + center_point_vc + 32 )) begin
+				pixel_finder = Enemy_img((hc - x - center_point_hc + 32) , (vc - y - center_point_vc + 32), enemies_angle[i], enemies_type[i]);
+				end
+		end
+	// For Spaceship
+	
+	if ((hc >= SS_hc) & (vc >= SS_vc) & (hc <= SS_hc + SS_width) & (vc <= SS_vc + SS_height)) begin
+		pixel_finder = Spaceship_img((hc - SS_hc),(vc - SS_vc),SS_state);
+	end 
+end
+endfunction
+
+function [3:0] Spaceship_img(input [9:0] x, input [9:0] y, input [3:0] angle);
+begin
+// Eklenecek
+end
+endfunction
+
+function [3:0] Enemy_img(input [9:0] x, input [9:0] y, input [3:0] angle, input [2:0] _type);
+begin
+// Eklenecek
+end
+endfunction
+
+function [3:0] Bullet_img(input [9:0] x, input [9:0] y, input [3:0] angle, input [1:0] _type);
+begin
+// Eklenecek
+end
+endfunction
 endmodule
