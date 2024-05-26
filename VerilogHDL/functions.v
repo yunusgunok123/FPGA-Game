@@ -1,3 +1,7 @@
+module Test(x, y, z);
+
+input wire x, y, z;
+
 reg [7:0] enemies_dist[7:0];
 reg [3:0] enemies_angle[7:0];
 reg [3:0] enemies_health[7:0];
@@ -59,6 +63,7 @@ begin
 	for(i = 4'd0; i < 4'd8 && ~stop; i = i + 4'd1)
 	if(~enemies_active[i]) begin
 		stop = 1'b1;
+		enemies_type[i] = e_type;
 		enemies_dist[i] = 8'd255; // Başlangıçta en uzak değer yaptım
 		enemies_angle[i] = $random;
 		enemies_health[i] = (e_type == 0) ? 4'd6:
@@ -99,6 +104,7 @@ begin
 	for(i = 5'd0; i < 5'd31 && counter > 0; i = i + 5'd1)
 	if(~bullets_active[i]) begin
 		bullets_dist[i] = 7'd0; // Başlangıçta merkezde
+		bullets_type[i] = b_type;
 		bullets_angle[i] = (counter == 5) ? angle + 4'd2:
 			(counter == 4) ? angle - 4'd2:
 			(counter == 3) ? angle + 4'd1:
@@ -150,3 +156,5 @@ begin
 	end
 end
 endfunction
+
+endmodule
