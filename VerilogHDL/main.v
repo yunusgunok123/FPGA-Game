@@ -45,61 +45,61 @@ module main(
 	reg[3:0] pixel;
 	
 	// Assignment for red color
-	assign red = (~is_blanking & (pixel == 4'b0000)) ? color0[23:16]:
-					 (~is_blanking & (pixel == 4'b0001)) ? color1[23:16]:
-					 (~is_blanking & (pixel == 4'b0010)) ? color2[23:16]:
-					 (~is_blanking & (pixel == 4'b0011)) ? color3[23:16]:
-					 (~is_blanking & (pixel == 4'b0100)) ? color4[23:16]:
-					 (~is_blanking & (pixel == 4'b0101)) ? color5[23:16]:
-					 (~is_blanking & (pixel == 4'b0110)) ? color6[23:16]:
-					 (~is_blanking & (pixel == 4'b0111)) ? color7[23:16]:
-					 (~is_blanking & (pixel == 4'b1000)) ? color8[23:16]:
-					 (~is_blanking & (pixel == 4'b1001)) ? color9[23:16]:
-					 (~is_blanking & (pixel == 4'b1010)) ? color10[23:16]:
-					 (~is_blanking & (pixel == 4'b1011)) ? color11[23:16]:
-					 (~is_blanking & (pixel == 4'b1100)) ? color12[23:16]:
-					 (~is_blanking & (pixel == 4'b1101)) ? color13[23:16]:
-					 (~is_blanking & (pixel == 4'b1110)) ? color14[23:16]:
-					 (~is_blanking & (pixel == 4'b1111)) ? color15[23:16]:
-					 8'b00000000;
+	assign red = (is_blanking) ? 8'b00000000:
+		(pixel == 4'd0) ? color0[23:16]:
+		(pixel == 4'd1) ? color1[23:16]:
+		(pixel == 4'd2) ? color2[23:16]:
+		(pixel == 4'd3) ? color3[23:16]:
+		(pixel == 4'd4) ? color4[23:16]:
+		(pixel == 4'd5) ? color5[23:16]:
+		(pixel == 4'd6) ? color6[23:16]:
+		(pixel == 4'd7) ? color7[23:16]:
+		(pixel == 4'd8) ? color8[23:16]:
+		(pixel == 4'd9) ? color9[23:16]:
+		(pixel == 4'd10) ? color10[23:16]:
+		(pixel == 4'd11) ? color11[23:16]:
+		(pixel == 4'd12) ? color12[23:16]:
+		(pixel == 4'd13) ? color13[23:16]:
+		(pixel == 4'd14) ? color14[23:16]:
+		color15[23:16];
 	
 	// Assignment for green color	
-	assign green = (~is_blanking & (pixel == 4'b0000)) ? color0[15:8]:
-					 (~is_blanking & (pixel == 4'b0001)) ? color1[15:8]:
-					 (~is_blanking & (pixel == 4'b0010)) ? color2[15:8]:
-					 (~is_blanking & (pixel == 4'b0011)) ? color3[15:8]:
-					 (~is_blanking & (pixel == 4'b0100)) ? color4[15:8]:
-					 (~is_blanking & (pixel == 4'b0101)) ? color5[15:8]:
-					 (~is_blanking & (pixel == 4'b0110)) ? color6[15:8]:
-					 (~is_blanking & (pixel == 4'b0111)) ? color7[15:8]:
-					 (~is_blanking & (pixel == 4'b1000)) ? color8[15:8]:
-					 (~is_blanking & (pixel == 4'b1001)) ? color9[15:8]:
-					 (~is_blanking & (pixel == 4'b1010)) ? color10[15:8]:
-					 (~is_blanking & (pixel == 4'b1011)) ? color11[15:8]:
-					 (~is_blanking & (pixel == 4'b1100)) ? color12[15:8]:
-					 (~is_blanking & (pixel == 4'b1101)) ? color13[15:8]:
-					 (~is_blanking & (pixel == 4'b1110)) ? color14[15:8]:
-					 (~is_blanking & (pixel == 4'b1111)) ? color15[15:8]:
-					 8'b00000000;
+	assign green = (is_blanking) ? 8'b00000000:
+		(pixel == 4'd0) ? color0[15:8]:
+		(pixel == 4'd1) ? color1[15:8]:
+		(pixel == 4'd2) ? color2[15:8]:
+		(pixel == 4'd3) ? color3[15:8]:
+		(pixel == 4'd4) ? color4[15:8]:
+		(pixel == 4'd5) ? color5[15:8]:
+		(pixel == 4'd6) ? color6[15:8]:
+		(pixel == 4'd7) ? color7[15:8]:
+		(pixel == 4'd8) ? color8[15:8]:
+		(pixel == 4'd9) ? color9[15:8]:
+		(pixel == 4'd10) ? color10[15:8]:
+		(pixel == 4'd11) ? color11[15:8]:
+		(pixel == 4'd12) ? color12[15:8]:
+		(pixel == 4'd13) ? color13[15:8]:
+		(pixel == 4'd14) ? color14[15:8]:
+		color15[15:8];
 	
 	// Assignment for blue color
-	assign blue = (~is_blanking & (pixel == 4'b0000)) ? color0[7:0]:
-					 (~is_blanking & (pixel == 4'b0001)) ? color1[7:0]:
-					 (~is_blanking & (pixel == 4'b0010)) ? color2[7:0]:
-					 (~is_blanking & (pixel == 4'b0011)) ? color3[7:0]:
-					 (~is_blanking & (pixel == 4'b0100)) ? color4[7:0]:
-					 (~is_blanking & (pixel == 4'b0101)) ? color5[7:0]:
-					 (~is_blanking & (pixel == 4'b0110)) ? color6[7:0]:
-					 (~is_blanking & (pixel == 4'b0111)) ? color7[7:0]:
-					 (~is_blanking & (pixel == 4'b1000)) ? color8[7:0]:
-					 (~is_blanking & (pixel == 4'b1001)) ? color9[7:0]:
-					 (~is_blanking & (pixel == 4'b1010)) ? color10[7:0]:
-					 (~is_blanking & (pixel == 4'b1011)) ? color11[7:0]:
-					 (~is_blanking & (pixel == 4'b1100)) ? color12[7:0]:
-					 (~is_blanking & (pixel == 4'b1101)) ? color13[7:0]:
-					 (~is_blanking & (pixel == 4'b1110)) ? color14[7:0]:
-					 (~is_blanking & (pixel == 4'b1111)) ? color15[7:0]:
-					 8'b00000000;
+	assign blue = (is_blanking) ? 8'b00000000:
+		(pixel == 4'd0) ? color0[7:0]:
+		(pixel == 4'd1) ? color1[7:0]:
+		(pixel == 4'd2) ? color2[7:0]:
+		(pixel == 4'd3) ? color3[7:0]:
+		(pixel == 4'd4) ? color4[7:0]:
+		(pixel == 4'd5) ? color5[7:0]:
+		(pixel == 4'd6) ? color6[7:0]:
+		(pixel == 4'd7) ? color7[7:0]:
+		(pixel == 4'd8) ? color8[7:0]:
+		(pixel == 4'd9) ? color9[7:0]:
+		(pixel == 4'd10) ? color10[7:0]:
+		(pixel == 4'd11) ? color11[7:0]:
+		(pixel == 4'd12) ? color12[7:0]:
+		(pixel == 4'd13) ? color13[7:0]:
+		(pixel == 4'd14) ? color14[7:0]:
+		color15[7:0];
 					 
 	// GUI settings
 	
