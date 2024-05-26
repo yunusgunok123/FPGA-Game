@@ -332,7 +332,7 @@ begin
 	for (i = 6'd0; i < 6'd31 && ~stop; i = i + 6'd1) begin
         temp1 = change_cor(bullets_dist[i], bullets_angle[i]);
         x = temp1[17:9] + GUI_width;
-        y = temp2[8:0];
+        y = temp1[8:0];
 
         d = (bullets_type[i] == 3'd0) ? 9'd16:
             (bullets_type[i] == 3'd1) ? 9'd24:
