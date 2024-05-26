@@ -134,7 +134,7 @@ module main(
 			parameter score_height = 30; // Height of score
 			
 			// Score register and wires
-			reg[17:0] score;
+			reg[16:0] score;
 
 			wire[3:0] score_digit0;
 			wire[3:0] score_digit1;
@@ -500,7 +500,16 @@ begin
 		damage_dealt = (bullets_type[i] == 2'b0) ? 4'd2 :
 							(bullets_type[i] == 2'b1) ? 4'd3 :
 							 4'd9;
-		if (enemies_health[j] <= damage_dealt) enemies_health[j] = 4'd0;
+		if (enemies_health[j] <= damage_dealt) begin 
+		score = (enemies_type[j] == 3'd0) ? score + 18'd6 :
+				  (enemies_type[j] == 3'd1) ? score + 18'd3 :
+				  (enemies_type[j] == 3'd2) ? score + 18'd2 :
+				  (enemies_type[j] == 3'd3) ? score + 18'd9 :
+				  score + 18'd15;
+		
+		enemies_active[j] = 1'd0;
+		
+		end
 		else enemies_health[j] = enemies_health[j] - damage_dealt;
 	end
 end
