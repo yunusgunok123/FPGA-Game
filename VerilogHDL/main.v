@@ -12,9 +12,10 @@ output wire[7:0] green,		    // Pixel color information about green color
 output wire[7:0] blue		    // Pixel color information about blue color
 );
 
+VGA_init(.CLK(CLK),.RESET(RESET),.hsync(hsync),.vsync(vsync),.hc(hc),.vc(vc),.is_blanking(is_blanking));
+	
 wire[9:0] hc;
 wire[9:0] vc;
-
 wire is_blanking;
 
 parameter [23:0] color0  = {8'd026, 8'd028, 8'd043};
