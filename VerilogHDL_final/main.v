@@ -11,7 +11,7 @@ output wire vsync,              // Vertical sync output
 output wire[7:0] red,		    // Pixel color information about red color
 output wire[7:0] green,		    // Pixel color information about green color
 output wire[7:0] blue,		    // Pixel color information about blue color
-output reg deneme1,					// Player is alive or not
+output reg deneme1,				
 output reg deneme2
 );
 
