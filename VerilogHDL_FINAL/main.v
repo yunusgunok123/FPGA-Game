@@ -1,6 +1,5 @@
 module main(
 input wire CLK,             	// 25.175 MHz clock
-input wire RESET,             	// Reset signal
 input wire Weapon_switch, 		// To switch the current weapon (KEY3)
 input wire Fire, 		// Fire button (Button4)
 input wire Rotate_CW, 			// To rotate 22.5 degrees in clockwise direction (KEY0)
