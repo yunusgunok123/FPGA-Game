@@ -99,7 +99,7 @@ end
 reg game_over;
 
 // Initialize VGA
-VGA_init(.CLK(CLK),.RESET(RESET),.hsync(hsync),.vsync(vsync),.hc(hc),.vc(vc),.is_blanking(is_blanking));
+VGA_init(.CLK(CLK),.hsync(hsync),.vsync(vsync),.hc(hc),.vc(vc),.is_blanking(is_blanking));
 
 // 5 Hz clock
 wire CLK_5Hz; 
