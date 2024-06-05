@@ -1,11 +1,10 @@
 module VGA_init(
     input wire CLK,             // 25.175 MHz clock
-    input wire RESET,             // Reset signal
-    output wire hsync,           // Horizontal sync output
-    output wire vsync,           // Vertical sync output
-	 output reg [9:0] hc = 0,		// Counter for horizontal timing also gives us the horizontal location
-    output reg [9:0] vc = 0,		// Counters for vertical timing also gives us the vertical location
-	 output wire is_blanking 		// To see whether we are in blanking state or not
+    output wire hsync,          // Horizontal sync output
+    output wire vsync,          // Vertical sync output
+    output reg [9:0] hc = 0,	// Counter for horizontal timing also gives us the horizontal location
+    output reg [9:0] vc = 0,	// Counters for vertical timing also gives us the vertical location
+    output wire is_blanking 	// To see whether we are in blanking state or not
 
 );
 
@@ -24,23 +23,18 @@ module VGA_init(
 
 
     always @(posedge CLK) begin
-        if (RESET) begin
-            hc <= 0;
-            vc <= 0;
-        end else begin
-            // Horizontal counter
-            if (hc == H_TOTAL - 1) begin
-                hc <= 0;
-                // Vertical counter
-                if (vc == V_TOTAL - 1) begin
-                    vc <= 0;
-                end else begin
-                    vc <= vc + 1;
-                end
-            end else begin
-                hc <= hc + 1;
-            end
-        end
+	    // Horizontal counter
+	    if (hc == H_TOTAL - 1) begin
+		hc <= 0;
+		// Vertical counter
+		if (vc == V_TOTAL - 1) begin
+		    vc <= 0;
+		end else begin
+		    vc <= vc + 1;
+		end
+	    end else begin
+		hc <= hc + 1;
+	    end
     end
 
     // Generate HSYNC and VSYNC signals
