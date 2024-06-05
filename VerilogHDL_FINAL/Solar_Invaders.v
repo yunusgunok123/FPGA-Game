@@ -60,7 +60,6 @@ assign LEDR = (LEDs_on) ? 10'b1111111111 : 10'b0000000000;
 CLK_divider_25MHz(.CLK(CLOCK_50),.CLK_divided(CLK_25));
 
 main(.CLK(CLK_25),
-     .RESET(SW[0]),
 	  .Weapon_switch(KEY[3]),
 	  .Fire(KEY[2]),
 	  .Rotate_CW(KEY[0]),
